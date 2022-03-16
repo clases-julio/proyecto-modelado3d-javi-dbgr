@@ -1,4 +1,5 @@
 import bpy
+import math
 
 '''*********************************************************************'''
 '''Funciones comunes útiles para selección/activación/borrado de objetos'''
@@ -88,8 +89,8 @@ class Objeto:
         bpy.ops.mesh.primitive_cone_add(radius1=0.5, location=(0, 0, 0))
         Activo.renombrar(objName)
     
-    def crearCilindro(objName):
-        bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=2, location=(0, 0, 0))
+    def crearCilindro(objName, r, d):
+        bpy.ops.mesh.primitive_cylinder_add(radius=r, depth=d, location=(0, 0, 0))
         Activo.renombrar(objName)
 
 
@@ -99,12 +100,20 @@ def create_body():
     Seleccionado.escalar((1.3, 2.5, 0.5))
 
 
+def create_wheel():
+    bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=0.4, location=(0, 0, 0))
+    Activo.rotar((0, math.pi / 2, 0))
+
+    bpy.ops.mesh.primitive_torus_add(align='WORLD', location=(0, 0, 0), rotation=(0, 0, 0), major_radius=1, minor_radius=0.25, abso_major_rad=1.25, abso_minor_rad=0.75)
+    Activo.rotar((0, math.pi / 2, 0))
+
+
 
 def main():
     borrarObjetos()
     
-    create_body()
-    
+    # create_body()
+    create_wheel()
 
     
 if __name__ == "__main__":
