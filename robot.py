@@ -91,22 +91,21 @@ class Objeto:
     def crearCilindro(objName):
         bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=2, location=(0, 0, 0))
         Activo.renombrar(objName)
-        
-        
-        
 
 
-'''************'''
-''' M  A  I  N '''
-'''************'''
-if __name__ == "__main__":
+def create_body():
+    Objeto.crearCubo("main_body")
+    Seleccionado.mover((0, 0, 1))
+    Seleccionado.escalar((1.3, 2.5, 0.5))
+
+
+
+def main():
     borrarObjetos()
     
-    Objeto.crearCilindro('c_medio')
-    Activo.rotar((0, 3.1415 / 2, 0))
-    Seleccionado.escalar((0.1, 1, 1))
+    create_body()
     
-    Objeto.crearCilindro('c_exterior')
-    Activo.rotar((0, 3.1415 / 2, 0))
-    Seleccionado.escalar((0.1, 1, 1))
-    Seleccionado.mover((-1, 0, 0))
+
+    
+if __name__ == "__main__":
+    main()
