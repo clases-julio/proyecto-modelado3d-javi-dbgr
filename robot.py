@@ -291,6 +291,7 @@ def main():
     create_robotic_arm("arm")
     seleccionar_coleccion("arm")
     Seleccionado.mover((0, -1.5, 0.1))
+    bpy.ops.transform.rotate(value=(-math.pi / 5),center_override=(0, -1.5, 0))
     # Activo.rotar((0, math.pi / 2, 0))
     collection = bpy.data.collections["arm"]
     robot_collection.children.link(collection)
