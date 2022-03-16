@@ -246,6 +246,9 @@ def main():
     for collection in bpy.data.collections:
         bpy.data.collections.remove(collection)
     
+    robot_collection = bpy.data.collections.new(name="robot")
+    bpy.context.scene.collection.children.link(robot_collection)
+    
 
     create_body("body")
     collection = bpy.data.collections["body"]
@@ -259,6 +262,16 @@ def main():
     create_robotic_arm("arm")
     seleccionar_coleccion("arm")
     collection = bpy.data.collections["arm"]
+
+def test():
+    borrarObjetos()
+    for collection in bpy.data.collections:
+        bpy.data.collections.remove(collection)
+
+
+    create_body("body")
+    create_robotic_arm("arm")
+    create_container("testess")
 
 
 
