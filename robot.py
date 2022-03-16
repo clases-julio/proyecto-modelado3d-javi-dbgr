@@ -146,7 +146,7 @@ def create_wheel(collection_name):
     Activo.rotar((0, math.pi / 2, 0))
     object = bpy.context.active_object
     bpy.data.collections[collection_name].objects.link(object)
-  
+
 
 def create_container(collection_name):
     collection = bpy.data.collections.new(name=collection_name)
@@ -292,22 +292,8 @@ def main():
     seleccionar_coleccion("arm")
     Seleccionado.mover((0, -1.5, 0.1))
     bpy.ops.transform.rotate(value=(-math.pi / 5),center_override=(0, -1.5, 0))
-    # Activo.rotar((0, math.pi / 2, 0))
     collection = bpy.data.collections["arm"]
     robot_collection.children.link(collection)
-
-def test():
-    borrarObjetos()
-    for collection in bpy.data.collections:
-        bpy.data.collections.remove(collection)
-
-
-    create_body("body")
-    create_robotic_arm("arm")
-    create_container("testess")
-
-
-
 
 
 if __name__ == "__main__":
