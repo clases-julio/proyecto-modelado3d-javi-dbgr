@@ -146,6 +146,34 @@ def create_wheel(collection_name):
     Activo.rotar((0, math.pi / 2, 0))
     object = bpy.context.active_object
     bpy.data.collections[collection_name].objects.link(object)
+  
+
+def create_container(collection_name):
+    collection = bpy.data.collections.new(name=collection_name)
+    bpy.context.scene.collection.children.link(collection)
+
+    Objeto.crearCubo("wall_1")
+    Seleccionado.escalar((5, 0.4, 2.5))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    Objeto.crearCubo("wall_2")
+    Seleccionado.escalar((5, 0.4, 2.5))
+    Seleccionado.mover((0, 2.7, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    Objeto.crearCubo("wall_3")
+    Seleccionado.escalar((0.4, 5, 2.5))
+    Seleccionado.mover((1.15, 1.35, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    Objeto.crearCubo("wall_4")
+    Seleccionado.escalar((0.4, 5, 2.5))
+    Seleccionado.mover((-1.15, 1.35, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
 
 
 
@@ -163,6 +191,11 @@ def main():
     seleccionar_coleccion("wheel_1")
     Seleccionado.mover((1.9, 2, 0))
     collection = bpy.data.collections["wheel_1"]
+
+    create_container("container")
+    seleccionar_coleccion("container")
+    Seleccionado.mover((0, 0, 0))
+    collection = bpy.data.collections["container"]
 
 
 
