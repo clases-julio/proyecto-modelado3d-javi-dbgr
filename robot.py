@@ -20,6 +20,10 @@ def borrarObjetos(): # Borrar todos los objetos
         bpy.ops.object.select_all(action='SELECT')
         bpy.ops.object.delete(use_global=False)
 
+def seleccionar_coleccion(nombre):
+    for object in bpy.data.collections[nombre].all_objects:
+        object.select_set(True)
+
 '''****************************************************************'''
 '''Clase para realizar transformaciones sobre objetos seleccionados'''
 '''****************************************************************'''
@@ -94,27 +98,75 @@ class Objeto:
         Activo.renombrar(objName)
 
 
-def create_body():
+def create_body(collection_name):
+    collection = bpy.data.collections.new(name=collection_name)
+    bpy.context.scene.collection.children.link(collection)
+
     Objeto.crearCubo("main_body")
-    Seleccionado.mover((0, 0, 1))
-    Seleccionado.escalar((1.3, 2.5, 0.5))
+    Seleccionado.escalar((6, 12, 1))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
 
-
-def create_wheel():
-    bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=0.4, location=(0, 0, 0))
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.1, depth=0.3, location=(1.65, 2, 0))
     Activo.rotar((0, math.pi / 2, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
 
-    bpy.ops.mesh.primitive_torus_add(align='WORLD', location=(0, 0, 0), rotation=(0, 0, 0), major_radius=1, minor_radius=0.25, abso_major_rad=1.25, abso_minor_rad=0.75)
+
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.1, depth=0.3, location=(-1.65, 2, 0))
     Activo.rotar((0, math.pi / 2, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.1, depth=0.3, location=(-1.65, -2, 0))
+    Activo.rotar((0, math.pi / 2, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.1, depth=0.3, location=(1.65, -2, 0))
+    Activo.rotar((0, math.pi / 2, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    seleccionar_coleccion(collection_name)
+    bpy.ops.object.join()
+
+
+
+def create_wheel(collection_name):
+    collection = bpy.data.collections.new(name=collection_name)
+    bpy.context.scene.collection.children.link(collection)
+
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.8, depth=0.4, location=(0, 0, 0))
+    Activo.rotar((0, math.pi / 2, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    bpy.ops.mesh.primitive_torus_add(align='WORLD', location=(0, 0, 0), rotation=(0, 0, 0), major_radius=0.8, minor_radius=0.25, abso_major_rad=1.25, abso_minor_rad=0.75)
+    Activo.rotar((0, math.pi / 2, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
 
 
 
 def main():
     borrarObjetos()
+    for collection in bpy.data.collections:
+        bpy.data.collections.remove(collection)
     
-    # create_body()
-    create_wheel()
 
+    create_body("body")
+    collection = bpy.data.collections["body"]
     
+
+    create_wheel("wheel_1")
+    seleccionar_coleccion("wheel_1")
+    Seleccionado.mover((1.9, 2, 0))
+    collection = bpy.data.collections["wheel_1"]
+
+
+
+
+
 if __name__ == "__main__":
     main()
