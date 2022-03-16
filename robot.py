@@ -246,22 +246,54 @@ def main():
     for collection in bpy.data.collections:
         bpy.data.collections.remove(collection)
     
+
     robot_collection = bpy.data.collections.new(name="robot")
     bpy.context.scene.collection.children.link(robot_collection)
-    
+
 
     create_body("body")
     collection = bpy.data.collections["body"]
+    robot_collection.children.link(collection)
     
 
     create_wheel("wheel_1")
     seleccionar_coleccion("wheel_1")
     Seleccionado.mover((1.9, 2, 0))
     collection = bpy.data.collections["wheel_1"]
+    robot_collection.children.link(collection)
+
+    create_wheel("wheel_2")
+    seleccionar_coleccion("wheel_2")
+    Seleccionado.mover((-1.9, 2, 0))
+    collection = bpy.data.collections["wheel_2"]
+    robot_collection.children.link(collection)
+
+    create_wheel("wheel_3")
+    seleccionar_coleccion("wheel_3")
+    Seleccionado.mover((-1.9, -2, 0))
+    collection = bpy.data.collections["wheel_3"]
+    robot_collection.children.link(collection)
+
+    create_wheel("wheel_4")
+    seleccionar_coleccion("wheel_4")
+    Seleccionado.mover((1.9, -2, 0))
+    collection = bpy.data.collections["wheel_4"]
+    robot_collection.children.link(collection)
+
+
+    create_container("container")
+    seleccionar_coleccion("container")
+    Seleccionado.mover((0, 0.2, 0.8))
+    collection = bpy.data.collections["container"]
+    robot_collection.children.link(collection)
+
 
     create_robotic_arm("arm")
     seleccionar_coleccion("arm")
+    Seleccionado.mover((0, -1.5, 0.1))
+    # Activo.rotar((0, math.pi / 2, 0))
     collection = bpy.data.collections["arm"]
+    robot_collection.children.link(collection)
 
 def test():
     borrarObjetos()
