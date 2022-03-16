@@ -176,6 +176,70 @@ def create_container(collection_name):
     bpy.data.collections[collection_name].objects.link(object)
 
 
+def create_robotic_arm(collection_name):
+    collection = bpy.data.collections.new(name=collection_name)
+    bpy.context.scene.collection.children.link(collection)
+
+    bpy.ops.mesh.primitive_cylinder_add(radius=1.2, depth=0.2, location=(0, 0, 0))
+    Seleccionado.mover((0, 0, 0.2))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.8, depth=0.4, location=(0, 0, 0))
+    Seleccionado.mover((0, 0, 0.3))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    Objeto.crearCubo("one")
+    Seleccionado.escalar((1, 1, 4))
+    Seleccionado.mover((0, 0, 1.4))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+    
+    Objeto.crearCubo("two")
+    Seleccionado.escalar((1, 1, 4))
+    Seleccionado.mover((0, 0.5, 3))
+    Activo.rotar((-math.pi / 5, 0, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    Objeto.crearCubo("three")
+    Seleccionado.escalar((1, 1, 4))
+    Seleccionado.mover((0, 1.85, 3.7))
+    Activo.rotar((-math.pi / 2, 0, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.25, depth=0.2, location=(0, 2.9, 3.7))
+    Activo.rotar((-math.pi / 2, 0, 0))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    Objeto.crearCubo("four")
+    Seleccionado.escalar((2.5, 0.5, 0.7))
+    Seleccionado.mover((0, 3.1, 3.7))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+    
+    Objeto.crearCubo("five")
+    Seleccionado.escalar((0.4, 2.3, 0.4))
+    Seleccionado.mover((0.5, 3.6, 3.7))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    Objeto.crearCubo("six")
+    Seleccionado.escalar((0.4, 2.3, 0.4))
+    Seleccionado.mover((-0.5, 3.6, 3.7))
+    object = bpy.context.active_object
+    bpy.data.collections[collection_name].objects.link(object)
+
+    bpy.ops.object.select_all(action='DESELECT')
+    bpy.data.objects["four"].select_set(True)
+    bpy.data.objects["five"].select_set(True)
+    bpy.data.objects["six"].select_set(True)
+    bpy.ops.transform.rotate(value=(-math.pi / 7),center_override=(0, 2.9, 3.7), orient_axis='Y')
+
+
 
 def main():
     borrarObjetos()
@@ -192,10 +256,9 @@ def main():
     Seleccionado.mover((1.9, 2, 0))
     collection = bpy.data.collections["wheel_1"]
 
-    create_container("container")
-    seleccionar_coleccion("container")
-    Seleccionado.mover((0, 0, 0))
-    collection = bpy.data.collections["container"]
+    create_robotic_arm("arm")
+    seleccionar_coleccion("arm")
+    collection = bpy.data.collections["arm"]
 
 
 
